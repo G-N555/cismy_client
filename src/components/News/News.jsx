@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import NewsItem from "./NewsItem";
+// import { Carousel } from "react-responsive-carousel";
+// import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 const News = () => {
   const [feed, setFeed] = useState([]);
@@ -11,7 +13,6 @@ const News = () => {
       )
       .then(res => {
         const feedData = res.data.results.map(feed => {
-          console.log(feed);
           const { title, url, id, media } = feed;
           const singleFeed = {
             title,
@@ -26,9 +27,13 @@ const News = () => {
       .catch(err => err);
   }, []);
 
+  if (feed.length === 0) {
+    return <p>Loading</p>;
+  }
+
   const feedList = feed.map(singleFeed => {
     const { title, url, id, picsUrl } = singleFeed;
-    return <NewsItem title={title} url={url} key={id} picsUrl={picsUrl} />;
+    return <NewsItem title={title} url={url} id={id} picsUrl={picsUrl} />;
   });
 
   return <>{feedList}</>;

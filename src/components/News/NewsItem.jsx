@@ -1,12 +1,11 @@
 import React from "react";
 
-const NewsItem = ({ title, url, picsUrl }) => {
+const NewsItem = ({ title, url, picsUrl, key }) => {
   return (
-    <ul>
-      <li>{title}</li>
-      <li>{url}</li>
-      <img src={picsUrl} />
-    </ul>
+    <div>
+      <img src={picsUrl} alt={title} />
+      <p>{title}</p>
+    </div>
   );
 };
 
