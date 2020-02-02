@@ -1,6 +1,10 @@
 .News {
-  width: 100%;
-  height: 30%;
+  width: 90%;
+  margin: 2em auto;
+}
+
+.News img {
+  border-radius: 7px;
 }
 
 .custom_legend {

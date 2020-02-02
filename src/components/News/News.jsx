@@ -14,7 +14,6 @@ const News = () => {
       )
       .then(res => {
         const feedData = res.data.results.map(feed => {
-          console.log(feed);
           const { title, url, id, media } = feed;
           const singleFeed = {
             title,
@@ -39,7 +38,13 @@ const News = () => {
   });
 
   return (
-    <Carousel className={style.News} infiniteLoop={true} showThumbs={false}>
+    <Carousel
+      className={style.News}
+      infiniteLoop={true}
+      showThumbs={false}
+      showStatus={false}
+      autoPlay={false}
+    >
       {newsItem}
     </Carousel>
   );
