@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import NewsItem from "./NewsItem";
-// import { Carousel } from "react-responsive-carousel";
-// import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { Carousel } from "react-responsive-carousel";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import style from "./News.module.css";
 
 const News = () => {
   const [feed, setFeed] = useState([]);
@@ -13,16 +14,17 @@ const News = () => {
       )
       .then(res => {
         const feedData = res.data.results.map(feed => {
+          console.log(feed);
           const { title, url, id, media } = feed;
           const singleFeed = {
             title,
             url,
             id,
-            picsUrl: media[0]["media-metadata"][0].url
+            picsUrl: media[0]["media-metadata"][2].url
           };
           return singleFeed;
         });
-        setFeed(feedData);
+        setFeed(feedData.slice(0, 6));
       })
       .catch(err => err);
   }, []);
@@ -31,12 +33,16 @@ const News = () => {
     return <p>Loading</p>;
   }
 
-  const feedList = feed.map(singleFeed => {
+  const newsItem = feed.map(singleFeed => {
     const { title, url, id, picsUrl } = singleFeed;
-    return <NewsItem title={title} url={url} id={id} picsUrl={picsUrl} />;
+    return <NewsItem title={title} url={url} key={id} picsUrl={picsUrl} />;
   });
 
-  return <>{feedList}</>;
+  return (
+    <Carousel className={style.News} infiniteLoop={true} showThumbs={false}>
+      {newsItem}
+    </Carousel>
+  );
 };
 
 export default News;
